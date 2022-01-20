@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="netdrawlots.ico" />
+    <None Include="Resources\sc1.png" />
     <None Include="Resources\sourcecode.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

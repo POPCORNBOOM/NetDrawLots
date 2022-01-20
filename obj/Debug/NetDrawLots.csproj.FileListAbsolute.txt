@@ -17,3 +17,6 @@ K:\VS项目\NetDrawLots\NetDrawLots\obj\Debug\NetDrawLots.pdb
 K:\VS项目\NetDrawLots\NetDrawLots\bin\Debug\NetDrawLots.exe
 K:\VS项目\NetDrawLots\NetDrawLots\bin\Debug\NetDrawLots.pdb
 L:\VS项目\NetDrawLots\NetDrawLots\bin\Debug\NetDrawLots.exe.config
+L:\VS项目\NetDrawLots\NetDrawLots\obj\Debug\NetDrawLots.showsourcecode.resources
+K:\VS项目\NetDrawLots\NetDrawLots\bin\Debug\NetDrawLots.exe.config
+K:\VS项目\NetDrawLots\NetDrawLots\obj\Debug\NetDrawLots.showsourcecode.resources

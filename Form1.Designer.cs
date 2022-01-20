@@ -32,14 +32,20 @@ namespace NetDrawLots
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dgv_from = new System.Windows.Forms.DataGridView();
             this.names = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_roll = new System.Windows.Forms.Button();
-            this.tb_count = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cb_allowrepeat = new System.Windows.Forms.CheckBox();
             this.btn_import = new System.Windows.Forms.Button();
             this.dgv_output = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numUD_count = new System.Windows.Forms.NumericUpDown();
+            this.p_daterely = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numUP_coe = new System.Windows.Forms.NumericUpDown();
+            this.cb_up = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_10 = new System.Windows.Forms.Button();
             this.btn_1 = new System.Windows.Forms.Button();
@@ -49,14 +55,19 @@ namespace NetDrawLots
             this.label2 = new System.Windows.Forms.Label();
             this.tb_log = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_opensite = new System.Windows.Forms.Button();
             this.btn_showcode = new System.Windows.Forms.Button();
             this.btn_clearlog = new System.Windows.Forms.Button();
-            this.btn_opensite = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_topmost = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_from)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_output)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUD_count)).BeginInit();
+            this.p_daterely.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUP_coe)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -71,20 +82,31 @@ namespace NetDrawLots
             this.dgv_from.AllowUserToDeleteRows = false;
             this.dgv_from.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_from.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.names});
+            this.names,
+            this.id});
             resources.ApplyResources(this.dgv_from, "dgv_from");
             this.dgv_from.MultiSelect = false;
             this.dgv_from.Name = "dgv_from";
             this.dgv_from.ReadOnly = true;
+            this.dgv_from.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgv_from.RowHeadersVisible = false;
             this.dgv_from.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgv_from.RowTemplate.Height = 27;
             this.dgv_from.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             // 
             // names
             // 
+            this.names.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             resources.ApplyResources(this.names, "names");
             this.names.Name = "names";
             this.names.ReadOnly = true;
+            // 
+            // id
+            // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(this.id, "id");
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
             // 
             // btn_roll
             // 
@@ -94,12 +116,6 @@ namespace NetDrawLots
             this.btn_roll.Name = "btn_roll";
             this.btn_roll.UseVisualStyleBackColor = false;
             this.btn_roll.Click += new System.EventHandler(this.btn_roll_Click);
-            // 
-            // tb_count
-            // 
-            resources.ApplyResources(this.tb_count, "tb_count");
-            this.tb_count.Name = "tb_count";
-            this.tb_count.Leave += new System.EventHandler(this.tb_count_Leave);
             // 
             // label1
             // 
@@ -125,30 +141,96 @@ namespace NetDrawLots
             this.dgv_output.AllowUserToDeleteRows = false;
             this.dgv_output.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_output.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1});
+            this.rname,
+            this.rid});
             resources.ApplyResources(this.dgv_output, "dgv_output");
             this.dgv_output.MultiSelect = false;
             this.dgv_output.Name = "dgv_output";
             this.dgv_output.ReadOnly = true;
+            this.dgv_output.RowHeadersVisible = false;
             this.dgv_output.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgv_output.RowTemplate.Height = 27;
             this.dgv_output.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             // 
-            // dataGridViewTextBoxColumn1
+            // rname
             // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.rname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(this.rname, "rname");
+            this.rname.Name = "rname";
+            this.rname.ReadOnly = true;
+            // 
+            // rid
+            // 
+            this.rid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(this.rid, "rid");
+            this.rid.Name = "rid";
+            this.rid.ReadOnly = true;
             // 
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.numUD_count);
+            this.groupBox1.Controls.Add(this.p_daterely);
             this.groupBox1.Controls.Add(this.btn_roll);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.cb_up);
             this.groupBox1.Controls.Add(this.cb_allowrepeat);
-            this.groupBox1.Controls.Add(this.tb_count);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // numUD_count
+            // 
+            resources.ApplyResources(this.numUD_count, "numUD_count");
+            this.numUD_count.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUD_count.Name = "numUD_count";
+            this.numUD_count.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // p_daterely
+            // 
+            resources.ApplyResources(this.p_daterely, "p_daterely");
+            this.p_daterely.Controls.Add(this.label3);
+            this.p_daterely.Controls.Add(this.numUP_coe);
+            this.p_daterely.Name = "p_daterely";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // numUP_coe
+            // 
+            resources.ApplyResources(this.numUP_coe, "numUP_coe");
+            this.numUP_coe.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUP_coe.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numUP_coe.Name = "numUP_coe";
+            this.numUP_coe.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // cb_up
+            // 
+            resources.ApplyResources(this.cb_up, "cb_up");
+            this.cb_up.Name = "cb_up";
+            this.cb_up.UseVisualStyleBackColor = true;
+            this.cb_up.CheckedChanged += new System.EventHandler(this.cb_up_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -186,16 +268,16 @@ namespace NetDrawLots
             // 
             // groupBox3
             // 
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.dgv_from);
             this.groupBox3.Controls.Add(this.btn_import);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.dgv_output);
             resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Controls.Add(this.dgv_output);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
@@ -223,22 +305,12 @@ namespace NetDrawLots
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
-            // groupBox6
+            // btn_opensite
             // 
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.Controls.Add(this.groupBox2);
-            this.groupBox6.Controls.Add(this.groupBox5);
-            this.groupBox6.Controls.Add(this.groupBox1);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Controls.Add(this.groupBox6);
-            this.panel2.Controls.Add(this.groupBox4);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
+            resources.ApplyResources(this.btn_opensite, "btn_opensite");
+            this.btn_opensite.Name = "btn_opensite";
+            this.btn_opensite.UseVisualStyleBackColor = true;
+            this.btn_opensite.Click += new System.EventHandler(this.btn_opensite_Click);
             // 
             // btn_showcode
             // 
@@ -254,24 +326,56 @@ namespace NetDrawLots
             this.btn_clearlog.UseVisualStyleBackColor = true;
             this.btn_clearlog.Click += new System.EventHandler(this.btn_clearlog_Click);
             // 
-            // btn_opensite
+            // groupBox6
             // 
-            resources.ApplyResources(this.btn_opensite, "btn_opensite");
-            this.btn_opensite.Name = "btn_opensite";
-            this.btn_opensite.UseVisualStyleBackColor = true;
-            this.btn_opensite.Click += new System.EventHandler(this.btn_opensite_Click);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Controls.Add(this.groupBox2);
+            this.groupBox6.Controls.Add(this.groupBox5);
+            this.groupBox6.Controls.Add(this.groupBox1);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btn_topmost);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.groupBox6);
+            this.panel2.Controls.Add(this.groupBox4);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
+            // 
+            // btn_topmost
+            // 
+            resources.ApplyResources(this.btn_topmost, "btn_topmost");
+            this.btn_topmost.Name = "btn_topmost";
+            this.btn_topmost.UseVisualStyleBackColor = true;
+            this.btn_topmost.Click += new System.EventHandler(this.btn_topmost_Click);
+            this.btn_topmost.MouseDown += new System.Windows.Forms.MouseEventHandler(this.m_MouseDown);
+            this.btn_topmost.MouseMove += new System.Windows.Forms.MouseEventHandler(this.m_MouseMove);
+            this.btn_topmost.MouseUp += new System.Windows.Forms.MouseEventHandler(this.m_MouseUp);
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label2);
             this.Name = "Form1";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgv_from)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_output)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUD_count)).EndInit();
+            this.p_daterely.ResumeLayout(false);
+            this.p_daterely.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUP_coe)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -279,8 +383,8 @@ namespace NetDrawLots
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -288,13 +392,10 @@ namespace NetDrawLots
 
         private System.Windows.Forms.DataGridView dgv_from;
         private System.Windows.Forms.Button btn_roll;
-        private System.Windows.Forms.TextBox tb_count;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cb_allowrepeat;
         private System.Windows.Forms.Button btn_import;
-        private System.Windows.Forms.DataGridViewTextBoxColumn names;
         private System.Windows.Forms.DataGridView dgv_output;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btn_10;
@@ -310,6 +411,17 @@ namespace NetDrawLots
         private System.Windows.Forms.Button btn_showcode;
         private System.Windows.Forms.Button btn_clearlog;
         private System.Windows.Forms.Button btn_opensite;
+        private System.Windows.Forms.Button btn_topmost;
+        private System.Windows.Forms.CheckBox cb_up;
+        private System.Windows.Forms.DataGridViewTextBoxColumn names;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.NumericUpDown numUP_coe;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel p_daterely;
+        private System.Windows.Forms.NumericUpDown numUD_count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rid;
+        private System.Windows.Forms.Label label4;
     }
 }
 

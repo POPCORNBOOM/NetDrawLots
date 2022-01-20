@@ -14,6 +14,11 @@ namespace NetDrawLots
 {
     public partial class Form1 : Form
     {
+        bool isup =false;
+        bool ismin =false;
+        private bool formMove = false;//窗体是否移动
+        private Point formPoint;//记录窗体的位置
+
         public Form1()
         {
             InitializeComponent();
@@ -65,7 +70,8 @@ namespace NetDrawLots
             {
                 if (str != null)
                 {
-                    dgv_from.Rows.Add(str);
+                    List<string> list = new List<string>(str.Split(','));
+                    dgv_from.Rows.Add(list[0],list[1]);
                     //dgv_from.Rows[index].HeaderCell.Value = index + 1;
                 }
                 index++;
@@ -75,7 +81,8 @@ namespace NetDrawLots
                 btn_10.Enabled = true;
             else
                 btn_10.Enabled = false;
-
+            numUD_count.Value = 1;
+            numUD_count.Maximum = index;
         }
 
         private void dgv_from_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
@@ -85,7 +92,7 @@ namespace NetDrawLots
 
         private void btn_roll_Click(object sender, EventArgs e)
         {
-            roll(int.Parse(tb_count.Text));
+            roll((int)numUD_count.Value);
         }
 
         public void roll(int rollcount)
@@ -93,7 +100,10 @@ namespace NetDrawLots
             string rollid = ((int)DateTime.Now.Ticks).ToString("X");
             logtofile("Start New Roll[" + rollid + "] with RollCount: " + rollcount);
             List<string> result = new List<string>();
+            List<int> namesid = new List<int>();
             List<string> names = new List<string>();
+            List<int> resultid = new List<int>();
+
             if (dgv_from.Rows.Count == 0)
             {
                 logtofile("Error:Null Pool");
@@ -106,6 +116,7 @@ namespace NetDrawLots
             foreach (DataGridViewRow row in dgv_from.Rows)
             {
                 names.Add(row.Cells[0].Value.ToString());
+                namesid.Add(int.Parse(row.Cells[1].Value.ToString()));
                 temp += row.Cells[0].Value.ToString()+",";
             }
             logtofile("Load Pool:[ " + temp+"]");
@@ -118,23 +129,49 @@ namespace NetDrawLots
                 //Random rd = new Random((int)DateTime.Now.Ticks+rr);
                 logtofile("New Random with Seed: " + (newrdrd+rr));
                 int a = (int)(rd.NextDouble() * names.Count);
-                logtofile("New Random Result: " + a + " refer to" + names[a]);
+                int t = a;
+                if (isup)
+                {
+                    for(int x =0; x < numUP_coe.Value&& (int.Parse(DateTime.Now.ToString("dd")) % 10) != namesid[a] % 10; x++)
+                    {
+                        Random rdrd2 = new Random((int)DateTime.Now.Ticks + x);
+                        int newrdrd2 = (int)(rdrd2.NextDouble() * (int)DateTime.Now.Ticks);
+                        Random rd2 = new Random(newrdrd2 + rr + x);
+                        a = (int)(rd2.NextDouble() * names.Count);
+                    }
+                    logtofile("(UNFAIR)Former Result: " + namesid[t] + " refer to" + names[t] + " But Now Result:" + namesid[a] + " refer to" + names[a] + "\r\n------");
+
+                }
+                else
+                    logtofile("New Random Result: " + namesid[a] + " refer to" + names[a]+"\r\n------");
                 result.Add(names[a]);
+                resultid.Add(namesid[a]);
+
                 //if (dgv_from.Rows[a].HeaderCell.Value == null) dgv_from.Rows[a].HeaderCell.Value = 0;
                 //dgv_from.Rows[a].HeaderCell.Value = (int)dgv_from.Rows[a].HeaderCell.Value + 1;
                 if (!cb_allowrepeat.Checked)
+                {
                     names.RemoveAt(a);
+                    namesid.RemoveAt(a);
+
+                }
                 rr += 1;
             }
 
             dgv_output.Rows.Clear();
             dgv_output.Refresh();
+            int iid=0;
             foreach (string b in result)
             {
-                dgv_output.Rows.Add(b);
+                //dgv_output.Rows.Add(b);
+                dgv_output.Rows.Add(b, resultid[iid]);
+
+                iid++;
             }
             dgv_output.Refresh();
             logtofile("End Roll[" + rollid + "]");
+            Text = "NetDrawLots   v" + Application.ProductVersion + " --Roll[" + rollid + "]";
+
         }
 
 
@@ -155,14 +192,14 @@ namespace NetDrawLots
                 return false;
         }
 
-        private void tb_count_Leave(object sender, EventArgs e)
+        /*private void tb_count_Leave(object sender, EventArgs e)
         {
             if (!IsNumber(tb_count.Text, dgv_from.Rows.Count, 0))
             {
                 tb_count.Text = "1";
                 MessageBox.Show("{count|count∈N*,rowcount>=count>0}");
             }
-        }
+        }*/
 
         private void btn_10_Click(object sender, EventArgs e)
         {
@@ -186,6 +223,8 @@ namespace NetDrawLots
             sw.Close();
             tb_log.Text += (DateTime.Now + " | " + logstr + "\r\n");
             //fs.Close();
+
+
         }
 
         private void btn_log_Click(object sender, EventArgs e)
@@ -204,10 +243,10 @@ namespace NetDrawLots
         private void btn_showcode_Click(object sender, EventArgs e)
         {
             string tempcode = Properties.Settings.Default.logdir + "code.png";
-            if (!File.Exists(tempcode))
-            {
-                Properties.Resources.sourcecode.Save(tempcode);
-            }
+            //if (!File.Exists(tempcode))
+            //{
+                Properties.Resources.sc1.Save(tempcode);
+            //}
             Process.Start(tempcode);
 
         }
@@ -221,5 +260,75 @@ namespace NetDrawLots
         {
             Process.Start("https://github.com/POPCORNBOOM/NetDrawLots");
         }
+
+        private void btn_topmost_Click(object sender, EventArgs e)
+        {
+            if (ismin)
+            {
+                FormBorderStyle = FormBorderStyle.Sizable;
+                Width = 886;
+                Height = 525;
+                ismin = false;
+                btn_topmost.Dock = DockStyle.None;
+                //TopMost = false;
+                btn_topmost.Text = "悬浮小化";
+                Opacity= 1;
+            }
+            else
+            {
+                FormBorderStyle = FormBorderStyle.None;
+                Width = 70;
+                Height = 70;
+                ismin = true;
+                btn_topmost.Dock = DockStyle.Fill;
+                //TopMost = true;
+                btn_topmost.Text = "NDL\n左键还原\n右键拖动";
+                Opacity = 0.3;
+
+
+            }
+        }
+
+        private void m_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)//按下的是鼠标左键
+            {
+                formMove = false;//停止移动
+            }
+
+        }
+
+        private void m_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (formMove == true)
+            {
+                Point mousePos = Control.MousePosition;
+                mousePos.Offset(formPoint.X, formPoint.Y);
+                Location = mousePos;
+            }
+        }
+
+        private void m_MouseDown(object sender, MouseEventArgs e)
+        {
+            formPoint = new Point();
+            int xOffset;
+            int yOffset;
+            if (e.Button == MouseButtons.Right)
+            {
+                xOffset = -e.X - SystemInformation.FrameBorderSize.Width;
+                yOffset = -e.Y - SystemInformation.FrameBorderSize.Height;//SystemInformation.CaptionHeight -
+                formPoint = new Point(xOffset, yOffset);
+                formMove = true;//开始移动
+            }
+        }
+
+        private void cb_up_CheckedChanged(object sender, EventArgs e)
+        {
+            isup=cb_up.Checked;
+            p_daterely.Enabled = isup;
+        }
+
+
     }
 }
